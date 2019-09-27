@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.OrderMapper">
+
+    <insert id="add">
+        insert into
+        tb_order(id,uid,money,status,time,aid)
+        values(#{id},#{uid},#{money},#{status},#{time},#{aid})
+    </insert>
+    <select id="findByUid" resultType="com.qf.pojo.Order">
+        select * from tb_order where uid = #{id}
+    </select>
+    <select id="findByOid" resultType="com.qf.pojo.Order">
+        select * from tb_order where id = #{oid}
+    </select>
+    <select id="findDetailByOid" resultType="com.qf.pojo.OrderDetail">
+        select * from tb_orderdetail where oid = #{oid}
+    </select>
+</mapper>

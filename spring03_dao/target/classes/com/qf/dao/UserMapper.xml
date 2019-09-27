@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.UserMapper">
+    <insert id="add">
+        insert into tb_user(username,password,email,gender,flag,role,code)
+        values(#{username},#{password},#{email},#{gender},#{flag},#{role},#{code})
+    </insert>
+    <update id="update">
+        update tb_user
+        set username=#{username},
+        password=#{password},
+        email= #{email},
+        gender=#{gender},
+        flag=#{flag}
+        where id=#{id}
+    </update>
+    <update id="updateFlag">
+        update tb_user set flag=2 where id=#{uid}
+    </update>
+    <delete id="delete">
+        delete from tb_user where id = #{id}
+    </delete>
+
+
+    <!--<select id="login" resultType="com.qf.pojo.User">-->
+        <!--SELECT * from tb_user where username=#{username} and password=#{password}-->
+    <!--</select>-->
+
+    <select id="findAll" resultType="com.qf.pojo.User">
+        select * from tb_user where flag!=2
+    </select>
+
+
+    <select id="findById" resultType="com.qf.pojo.User">
+        select * from tb_user where id=#{id}
+    </select>
+
+
+    <select id="checkUserName" resultType="com.qf.pojo.User">
+        select * from tb_user where username = #{username}
+    </select>
+
+
+    <select id="findByUserNameAndPassword" resultType="com.qf.pojo.User">
+        select * from tb_user where username = #{username} and password = #{password}
+    </select>
+    <select id="findCount" resultType="java.lang.Long">
+        select COUNT(*) from tb_user
+        <where>
+            <if test="condition!=null and condition!='' ">
+              and ${condition}
+            </if>
+        </where>
+    </select>
+</mapper>
